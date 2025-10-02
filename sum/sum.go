@@ -1,6 +1,6 @@
 package sum
 
-func Sum(numbers [5]int) int {
+func Sum(numbers []int) int {
 	sum := 0
 	// NOTE
 	// 1. range is the declarative way of looping over an array.
@@ -9,4 +9,19 @@ func Sum(numbers [5]int) int {
 		sum += number
 	}
 	return sum
+}
+
+// NOTE
+// 1. `...` is used to pass a variable number of arguments to a function and collect 'em all.
+func SumAll(numbersToSum ...[]int) []int {
+	lengthOfNumbers := len(numbersToSum)
+	// NOTE
+	// 1. `make` is used to create a slice of a given length.
+	sums := make([]int, lengthOfNumbers)
+
+	for i, numbers := range numbersToSum {
+		sums[i] = Sum(numbers)
+	}
+
+	return sums
 }
