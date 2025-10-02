@@ -11,24 +11,31 @@ func TestHello(t *testing.T) {
 		got := hello("Sarmooh")
 		want := "Hello, Sarmooh!"
 
-		if got != want {
-			// NOTE
-			// 1. `t.Errorf` has string formatting
-			// 2. Run `go test` to run the tests - need to initiate a go project first using `go mod init <project-name>`
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(t, got, want)
 	})
 
 	t.Run("say 'Hello, stranger!' when an empty string is passed", func(t *testing.T) {
 		got := hello("")
 		want := "Hello, stranger!"
 
-		if got != want {
-			// NOTE
-			// 1. `t.Errorf` has string formatting
-			// 2. Run `go test` to run the tests - need to initiate a go project first using `go mod init <project-name>`
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(t, got, want)
 	})
 
+}
+
+// NOTE
+// 1. `testing.TB` is an interface that is implemented by `*testing.T` and `*testing.B`.
+// 2. Shorten parameter types
+func assertCorrectMessage(t testing.TB, got, want string) {
+	// NOTE
+	// 1. `t.Helper()` is used to mark the function as a helper.
+	// 2. Helpers help report the line number in the error message from original test suite instead of the
+	// helper.
+	t.Helper()
+	if got != want {
+		// NOTE
+		// 1. `t.Errorf` has string formatting
+		// 2. Run `go test` to run the tests - need to initiate a go project first using `go mod init <project-name>`
+		t.Errorf("got %q want %q", got, want)
+	}
 }
