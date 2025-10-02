@@ -8,16 +8,22 @@ import "testing"
 // 3. Test functions are like describe blocks and subtests are individual case assertions.
 func TestHello(t *testing.T) {
 	t.Run("saying hello to Sarmooh, which I haven't been able to do after being blocked.", func(t *testing.T) {
-		got := hello("Sarmooh")
+		got := hello("Sarmooh", "")
 		want := "Hello, Sarmooh!"
 
 		assertCorrectMessage(t, got, want)
 	})
 
 	t.Run("say 'Hello, stranger!' when an empty string is passed", func(t *testing.T) {
-		got := hello("")
+		got := hello("", "")
 		want := "Hello, stranger!"
 
+		assertCorrectMessage(t, got, want)
+	})
+
+	t.Run("in Spanish", func(t *testing.T) {
+		got := hello("Sarmooh", "Spanish")
+		want := "Hola, Sarmooh!"
 		assertCorrectMessage(t, got, want)
 	})
 

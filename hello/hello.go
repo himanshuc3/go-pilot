@@ -2,15 +2,22 @@ package main
 
 import "fmt"
 
-const greetPrefix = "Hello, "
+const spanish = "Spanish"
+const englishGreetPrefix = "Hello, "
+const spanishGreetPrefix = "Hola, "
 
 // NOTE
 // 1. `pkgsite` is used by go docs internally for generating documentation for packages
-func hello(name string) string {
+// 2. It seems like golang doesn't have overloading or optional arguments
+func hello(name, language string) string {
+	prefix := englishGreetPrefix
 	if name == "" {
 		name = "stranger"
 	}
-	return fmt.Sprintf("%s%s!", greetPrefix, name)
+	if language == spanish {
+		prefix = spanishGreetPrefix
+	}
+	return fmt.Sprintf("%s%s!", prefix, name)
 }
 
 // NOTE
@@ -22,5 +29,5 @@ func hello(name string) string {
 // 6. Run `go doc fmt` to check man-pages like documentation
 // 7. `go get` - to manage deps vs `go install` - to install a package executable
 func main() {
-	fmt.Println(hello("you weirdo!"))
+	fmt.Println(hello("you weirdo!", ""))
 }
