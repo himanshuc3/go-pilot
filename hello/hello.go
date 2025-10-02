@@ -5,19 +5,33 @@ import "fmt"
 const spanish = "Spanish"
 const englishGreetPrefix = "Hello, "
 const spanishGreetPrefix = "Hola, "
+const french = "French"
+const frenchGreetPrefix = "Bonjour, "
 
 // NOTE
 // 1. `pkgsite` is used by go docs internally for generating documentation for packages
 // 2. It seems like golang doesn't have overloading or optional arguments
 func hello(name, language string) string {
-	prefix := englishGreetPrefix
+	prefix := greetingPrefix(language)
 	if name == "" {
 		name = "stranger"
 	}
-	if language == spanish {
-		prefix = spanishGreetPrefix
-	}
+
 	return fmt.Sprintf("%s%s!", prefix, name)
+}
+
+func greetingPrefix(language string) (prefix string) {
+	switch language {
+	case french:
+		// NOTE
+		// 1. `prefix` is a named return value, which is initialized to the zero value of the type ""
+		prefix = frenchGreetPrefix
+	case spanish:
+		prefix = spanishGreetPrefix
+	default:
+		prefix = englishGreetPrefix
+	}
+	return
 }
 
 // NOTE
