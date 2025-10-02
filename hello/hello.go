@@ -2,10 +2,12 @@ package main
 
 import "fmt"
 
+const greetPrefix = "Hello, "
+
 // NOTE
 // 1. `pkgsite` is used by go docs internally for generating documentation for packages
 func hello(name string) string {
-	return fmt.Sprintf("Hello, %s!", name)
+	return fmt.Sprintf("%s%s!", greetPrefix, name)
 }
 
 // NOTE
