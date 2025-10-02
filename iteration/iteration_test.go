@@ -16,6 +16,7 @@ func TestRepeat(t *testing.T) {
 // 2. `go test -bench=.` runs benchmarks.
 // 3. Strings in Go are immutable, meaning every concatenation, such as in our Repeat function,
 // involves copying memory to accommodate the new string
+// 4. `go test -bench=. -benchmem` runs benchmarks and shows memory allocations.
 func BenchmarkRepeat(b *testing.B) {
 	// setup code runs before each benchmark
 	for b.Loop() {
