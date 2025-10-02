@@ -25,3 +25,25 @@ func SumAll(numbersToSum ...[]int) []int {
 
 	return sums
 }
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	// NOTE
+	// 1. Easier way to defined slices, though less performant in most cases.
+	var sums []int
+
+	for _, numbers := range numbersToSum {
+		// NOTE
+		// 1. Python like slicing of arrays
+		if len(numbers) == 0 {
+			sums = append(sums, 0)
+
+		} else {
+
+			sum := Sum(numbers[1:])
+			sums = append(sums, sum)
+		}
+	}
+
+	return sums
+
+}

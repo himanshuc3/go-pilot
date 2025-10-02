@@ -36,3 +36,36 @@ func TestSumAll(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestSumAllTails(t *testing.T) {
+
+	// NOTE
+	// 1. This is a closure, a function that can access variables defined outside of it.
+	// 2. Another advantage is code isolation/encapsulation, not allowing other functions to use it outside of the test function.
+	checkSums := func(t testing.TB, got, want []int) {
+		t.Helper()
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	}
+
+	t.Run("make the sums of some slices", func(t *testing.T) {
+		got := SumAllTails([]int{1, 2, 3}, []int{0, 9, 10})
+		want := []int{5, 19}
+
+		checkSums(t, got, want)
+	})
+
+	// NOTE
+	// 1. Compile time errors are our friend because they help
+	// us write software that works, runtime errors are our
+	// enemies because they affect our users.
+	t.Run("safely sum empty slices", func(t *testing.T) {
+		got := SumAllTails([]int{}, []int{3, 4, 5})
+		want := []int{0, 9}
+
+		checkSums(t, got, want)
+
+	})
+
+}
