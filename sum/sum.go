@@ -31,6 +31,9 @@ func SumAllTails(numbersToSum ...[]int) []int {
 	// 1. Easier way to defined slices, though less performant in most cases.
 	var sums []int
 
+	// NOTE
+	// 1. Is numbers a reference or a copy?
+	// 2. Are slices/objects passed by value or reference to functions?
 	for _, numbers := range numbersToSum {
 		// NOTE
 		// 1. Python like slicing of arrays
