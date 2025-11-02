@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
 
 const spanish = "Spanish"
 const englishGreetPrefix = "Hello, "
@@ -32,6 +36,19 @@ func greetingPrefix(language string) (prefix string) {
 		prefix = englishGreetPrefix
 	}
 	return
+}
+
+// NOTE:
+// 1. Using io.Writer to create a flexible API which controls dependency injection:
+// Testing our code is easier where we can mock the io.Writer
+// Separation of concerns: Having parameters as interfaces instead of concrete types
+// Code Re-use at it's best
+func Greet(writer io.Writer, name string) {
+	fmt.Fprint(writer, hello(name, ""))
+}
+
+func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "world")
 }
 
 // NOTE

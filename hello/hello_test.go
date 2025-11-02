@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"bytes"
+	"testing"
+)
 
 // NOTE
 // 1. Testing is a first class citizen in Go.
@@ -27,6 +30,16 @@ func TestHello(t *testing.T) {
 		assertCorrectMessage(t, got, want)
 	})
 
+}
+
+func TestGreet(t *testing.T) {
+	buffer := bytes.Buffer{}
+	Greet(&buffer, "Sarmooh")
+
+	got := buffer.String()
+	expected := "Hello, Sarmooh!"
+
+	assertCorrectMessage(t, got, expected)
 }
 
 // NOTE
