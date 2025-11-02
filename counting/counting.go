@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"iter"
 	"os"
 	"time"
 )
@@ -69,12 +70,25 @@ func (s *SpyTime) SetDurationSlept(duration time.Duration) {
 }
 
 // NOTE:
+// 1. Making a simple iterator function, whose workings a little abstracted from the caller.
+func countDownFrom(from int) iter.Seq[int] {
+	return func(yield func(int) bool) {
+		for i := from; i > 0; i-- {
+			if !yield(i) {
+				return
+			}
+		}
+	}
+}
+
+// NOTE:
 // 1. Learning more about stubs, mocks and spies by Martin Fowler:
 // https://martinfowler.com/articles/mocksArentStubs.html
 func Countdown(out io.Writer, sleeper Sleeper) {
 	const finalWord = "Go!"
 	const coundownStart = 3
-	for i := coundownStart; i > 0; i-- {
+
+	for i := range countDownFrom(3) {
 		fmt.Fprintln(out, i)
 		// NOTE:
 		// 1. Mocking time.Sleep so that we can inject our dependency for testing
